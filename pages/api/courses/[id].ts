@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "utils/dbConnect";
-import Student from "models/Student";
+import Course from "models/Course";
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,11 +16,11 @@ export default async function handler(
   switch (method) {
     case "GET":
       try {
-        const student = await Student.findById(id);
-        if (!student) {
+        const course = await Course.findById(id);
+        if (!course) {
           return res.status(400).json({ success: false });
         }
-        res.status(200).json(student);
+        res.status(200).json(course);
       } catch (error) {
         res.status(400).json(error);
       }
@@ -28,14 +28,14 @@ export default async function handler(
 
     case "PUT":
       try {
-        const student = await Student.findByIdAndUpdate(id, req.body, {
+        const course = await Course.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true,
         });
-        if (!student) {
+        if (!course) {
           return res.status(400).json({ success: false });
         }
-        res.status(200).json(student);
+        res.status(200).json(course);
       } catch (error) {
         res.status(400).json(error);
       }
@@ -43,8 +43,8 @@ export default async function handler(
 
     case "DELETE":
       try {
-        const deletedStudent = await Student.deleteOne({ _id: id });
-        if (!deletedStudent) {
+        const deletedCourse = await Course.deleteOne({ _id: id });
+        if (!deletedCourse) {
           return res.status(400).json({ success: false });
         }
         res.status(200).json({ success: true });

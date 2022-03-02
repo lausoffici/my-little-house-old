@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "utils/dbConnect";
-import Student from "models/Student";
+import Course from "models/Course";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,8 +11,8 @@ export default async function handler(
   switch (req.method) {
     case "GET":
       try {
-        const students = await Student.find({});
-        res.status(200).json(students);
+        const courses = await Course.find({});
+        res.status(200).json(courses);
       } catch (error) {
         res.status(400).json(error);
       }
@@ -20,8 +20,8 @@ export default async function handler(
 
     case "POST":
       try {
-        const student = await Student.create(req.body);
-        res.status(201).json(student);
+        const course = await Course.create(req.body);
+        res.status(201).json(course);
       } catch (error) {
         res.status(400).json(error);
       }
