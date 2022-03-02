@@ -12,7 +12,7 @@ export default async function handler(
     case "GET":
       try {
         const courses = await Course.find({});
-        res.status(200).json(courses);
+        res.status(200).json({ courses });
       } catch (error) {
         res.status(400).json(error);
       }
@@ -21,7 +21,7 @@ export default async function handler(
     case "POST":
       try {
         const course = await Course.create(req.body);
-        res.status(201).json(course);
+        res.status(201).json({ course });
       } catch (error) {
         res.status(400).json(error);
       }

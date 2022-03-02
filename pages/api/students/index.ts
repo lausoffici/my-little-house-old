@@ -12,7 +12,7 @@ export default async function handler(
     case "GET":
       try {
         const students = await Student.find({});
-        res.status(200).json(students);
+        res.status(200).json({ students });
       } catch (error) {
         res.status(400).json(error);
       }
@@ -21,7 +21,7 @@ export default async function handler(
     case "POST":
       try {
         const student = await Student.create(req.body);
-        res.status(201).json(student);
+        res.status(201).json({ student });
       } catch (error) {
         res.status(400).json(error);
       }

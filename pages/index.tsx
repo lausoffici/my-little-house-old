@@ -51,7 +51,6 @@ export default Page;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const res = await apiClient.get("students");
-
   const students: IStudent[] = res.data.students;
 
   return {

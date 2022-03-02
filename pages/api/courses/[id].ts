@@ -20,7 +20,7 @@ export default async function handler(
         if (!course) {
           return res.status(400).json({ success: false });
         }
-        res.status(200).json(course);
+        res.status(200).json({ course });
       } catch (error) {
         res.status(400).json(error);
       }
@@ -35,7 +35,7 @@ export default async function handler(
         if (!course) {
           return res.status(400).json({ success: false });
         }
-        res.status(200).json(course);
+        res.status(200).json({ course });
       } catch (error) {
         res.status(400).json(error);
       }
