@@ -11,16 +11,11 @@ const StudentSchema = new mongoose.Schema({
     required: [true, "Please provide a last name for this student."],
     maxlength: [20, "Name cannot be more than 60 characters"],
   },
-  description: {
-    type: String,
-    required: false,
-  },
-  phones: {
-    type: Array,
-  },
-  courses: {
-    type: Array,
-  },
+  description: { type: String },
+  address: { type: String },
+  email: { type: String },
+  phones: { type: Array },
+  courses: { type: Array },
   isDeleted: { type: Boolean },
 });
 
