@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 import { IStudent } from "types";
-import students from "data";
+import apiClient from "utils/apiClient";
 
 interface Props {
   students: IStudent[];
@@ -50,6 +50,10 @@ const Page: React.FC<Props> = ({ students }) => {
 export default Page;
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await apiClient.get("students");
+
+  const students: IStudent[] = res.data.students;
+
   return {
     props: {
       students: students,
