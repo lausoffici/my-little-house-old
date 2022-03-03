@@ -7,10 +7,11 @@ interface IEntity {
 export interface IStudent extends IEntity {
   firstName: string;
   lastName: string;
-  description?: string;
-  email?: string;
-  phones: { name: string; value: number }[];
   courses: ICourse[];
+  description?: string;
+  phones?: { name: string; value: number }[];
+  address?: string;
+  email?: string;
 }
 
 export interface ICourse extends IEntity {
