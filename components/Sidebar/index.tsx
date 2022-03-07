@@ -41,7 +41,7 @@ const NavItem = ({ icon, children, href }) => {
   const path = router.pathname;
 
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <Flex
         borderRight={path === href ? "2px" : "0px"}
         borderRightColor="brand.400"
