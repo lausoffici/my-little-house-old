@@ -51,20 +51,18 @@ const Page: React.FC<Props> = ({ students }) => {
           Nuevo Alumno
         </Button>
       </HStack>
-      <Table>
-        <Thead>
-          <Tr>
-            <Th py={3} fontSize="sm" bgColor="brand.200" color="brand.50">
-              Apellido y Nombre
-            </Th>
-            <Th bgColor="brand.200" color="brand.50">
-              Curso
-            </Th>
-          </Tr>
-        </Thead>
-      </Table>
       <Box overflowY="auto" w="100%">
         <Table colorScheme="gray" size="sm" bgColor="white">
+          <Thead>
+            <Tr>
+              <Th py={3} fontSize="sm" bgColor="brand.200" color="brand.50">
+                Apellido y Nombre
+              </Th>
+              <Th bgColor="brand.200" color="brand.50">
+                Curso
+              </Th>
+            </Tr>
+          </Thead>
           <Tbody>
             {students.map((student) => {
               return (
