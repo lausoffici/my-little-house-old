@@ -1,15 +1,8 @@
-import {
-  Box,
-  VStack,
-  Heading,
-  Divider,
-  Link,
-  Icon,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, VStack, Heading, Divider, Icon, Flex } from "@chakra-ui/react";
 import { FiSmile, FiMonitor, FiLock } from "react-icons/fi";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import Link from "next/link";
 
 const LinkItems = [
   { name: "Estudiantes", icon: FiSmile, href: "/" },
@@ -18,8 +11,6 @@ const LinkItems = [
 ];
 
 function Sidebar() {
-  const router = useRouter();
-  const path = router.pathname;
   return (
     <Box w="80" h="full" bgColor="white">
       <VStack spacing={5}>
@@ -46,20 +37,19 @@ function Sidebar() {
 }
 
 const NavItem = ({ icon, children, href }) => {
+  const router = useRouter();
+  const path = router.pathname;
+
   return (
-    <Link
-      href={href}
-      style={{
-        textDecoration: "none",
-      }}
-      _focus={{ boxShadow: "none" }}
-    >
+    <Link href={href}>
       <Flex
+        borderRight={path === href ? "2px" : "0px"}
+        borderRightColor="brand.400"
         align="center"
-        p="4"
-        mx="4"
+        m="4"
         role="group"
         cursor="pointer"
+        fontWeight={path === href ? "700" : "400"}
         _hover={{
           color: "brand.400",
         }}
@@ -73,7 +63,7 @@ const NavItem = ({ icon, children, href }) => {
             as={icon}
           />
         )}
-        {children}
+        <a>{children}</a>
       </Flex>
     </Link>
   );
