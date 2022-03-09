@@ -12,12 +12,10 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-
 import { RiUserAddLine } from "react-icons/ri";
 
 import StudentsForm, { IFormData } from "student/StudentsForm";
 import apiService from "student/api";
-
 import { IStudent } from "types";
 
 interface Props {
@@ -56,19 +54,19 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
 
   return (
     <>
-              <Button
-          leftIcon={<RiUserAddLine />}
-          size="sm"
-          bgColor="brand.800"
-          color="white"
-          fontWeight="thin"
-          _hover={{ bgColor: "brand.750" }}
-          _active={{ bgColor: "brand.700" }}
-          _focus={{ outlineColor: "brand.700" }}
-          p={5}
-        >
-          Nuevo Alumno
-        </Button>
+      <Button
+        leftIcon={<RiUserAddLine />}
+        size="sm"
+        bgColor="brand.800"
+        color="white"
+        fontWeight="thin"
+        _hover={{ bgColor: "brand.750" }}
+        _active={{ bgColor: "brand.700" }}
+        _focus={{ outlineColor: "brand.700" }}
+        p={5}
+      >
+        Nuevo Alumno
+      </Button>
       <Drawer
         isOpen={isOpen}
         placement="right"
