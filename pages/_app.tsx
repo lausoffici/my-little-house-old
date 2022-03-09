@@ -1,12 +1,16 @@
-import { ChakraProvider, Container } from "@chakra-ui/react";
+import { ChakraProvider, Flex } from "@chakra-ui/react";
+import Sidebar from "components/Sidebar";
+import theme from "../theme";
+import "../theme/styles.css";
 
 // Entry point de la app (logica que comparten todas las pages)
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider>
-      <Container maxW="container.lg">
+    <ChakraProvider theme={theme}>
+      <Flex minH="100vh">
+        <Sidebar />
         <Component {...pageProps} />
-      </Container>
+      </Flex>
     </ChakraProvider>
   );
 }
