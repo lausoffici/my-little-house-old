@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { RiUserAddLine } from "react-icons/ri";
 
 import StudentsForm, { IFormData } from "student/StudentsForm";
-import apiService from "student/api";
+import studentsApi from "student/api";
 import { IStudent } from "types";
 
 interface Props {
@@ -30,7 +30,7 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
 
   async function onSubmit(inputs: IFormData) {
     try {
-      const newStudent = await apiService.create(inputs);
+      const newStudent = await studentsApi.create(inputs);
       handleAddStudent(newStudent);
       toast({
         title: "Éxito!",
@@ -55,6 +55,7 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
   return (
     <>
       <Button
+        onClick={onOpen}
         leftIcon={<RiUserAddLine />}
         size="sm"
         bgColor="brand.800"
