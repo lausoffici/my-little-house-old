@@ -13,6 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
+import { RiUserAddLine } from "react-icons/ri";
+
 import StudentsForm, { IFormData } from "student/StudentsForm";
 import apiService from "student/api";
 
@@ -54,9 +56,19 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="blue" onClick={onOpen}>
-        Crear Alumno
-      </Button>
+              <Button
+          leftIcon={<RiUserAddLine />}
+          size="sm"
+          bgColor="brand.800"
+          color="white"
+          fontWeight="thin"
+          _hover={{ bgColor: "brand.750" }}
+          _active={{ bgColor: "brand.700" }}
+          _focus={{ outlineColor: "brand.700" }}
+          p={5}
+        >
+          Nuevo Alumno
+        </Button>
       <Drawer
         isOpen={isOpen}
         placement="right"
