@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { GetServerSideProps } from "next";
 import {
   Input,
@@ -10,20 +11,27 @@ import {
   VStack,
   HStack,
   Box,
-  Button,
   InputLeftElement,
   InputGroup,
 } from "@chakra-ui/react";
 
+import studentsApi from "student/api";
+import AddStudentDrawer from "student/AddStudentDrawer";
 import { IStudent } from "types";
-import apiClient from "utils/apiClient";
-import { RiUserAddLine, RiSearchLine } from "react-icons/ri";
+
+import { RiSearchLine } from "react-icons/ri";
 
 interface Props {
   students: IStudent[];
 }
 
 const Page: React.FC<Props> = ({ students }) => {
+  const [studentList, setStudentList] = useState<IStudent[]>(students);
+
+  function handleAddStudent(student: IStudent) {
+    setStudentList([...studentList, student]);
+  }
+
   return (
     <VStack w="100%" h="100vh" bgColor="brand.50" p={5}>
       <HStack mb={5} w="100%">
@@ -37,19 +45,7 @@ const Page: React.FC<Props> = ({ students }) => {
             _focus={{ borderColor: "brand.400" }}
           />
         </InputGroup>
-        <Button
-          leftIcon={<RiUserAddLine />}
-          size="sm"
-          bgColor="brand.800"
-          color="white"
-          fontWeight="thin"
-          _hover={{ bgColor: "brand.750" }}
-          _active={{ bgColor: "brand.700" }}
-          _focus={{ outlineColor: "brand.700" }}
-          p={5}
-        >
-          Nuevo Alumno
-        </Button>
+        <AddStudentDrawer handleAddStudent={handleAddStudent} />
       </HStack>
       <Box overflowY="auto" w="100%">
         <Table colorScheme="gray" size="sm" bgColor="white">
@@ -84,8 +80,7 @@ const Page: React.FC<Props> = ({ students }) => {
 export default Page;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await apiClient.get("students");
-  const students: IStudent[] = res.data.students;
+  const students = await studentsApi.list();
 
   return {
     props: {
