@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const LinkItems = [
-  { name: "Estudiantes", icon: FiSmile, href: "/" },
+  { name: "Estudiantes", icon: FiSmile, href: "/students" },
   { name: "Cursos", icon: FiMonitor, href: "/cursos" },
   { name: "Caja", icon: FiLock, href: "/caja" },
 ];
@@ -39,17 +39,18 @@ function Sidebar() {
 const NavItem = ({ icon, children, href }) => {
   const router = useRouter();
   const path = router.pathname;
+  const isActive = path.includes(href);
 
   return (
     <Link href={href} passHref>
       <Flex
-        borderRight={path === href ? "2px" : "0px"}
+        borderRight={isActive ? "2px" : "0px"}
         borderRightColor="brand.400"
         align="center"
         m="4"
         role="group"
         cursor="pointer"
-        fontWeight={path === href ? "700" : "400"}
+        fontWeight={isActive ? "700" : "400"}
         _hover={{
           color: "brand.400",
         }}

@@ -20,6 +20,7 @@ import AddStudentDrawer from "student/AddStudentDrawer";
 import { IStudent } from "types";
 
 import { RiSearchLine } from "react-icons/ri";
+import Link from "next/link";
 
 interface Props {
   students: IStudent[];
@@ -60,16 +61,16 @@ const Page: React.FC<Props> = ({ students }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {students.map((student) => {
-              return (
-                <Tr key={student._id}>
+            {students.map(({ _id, firstName, lastName }) => (
+              <Link href={"/students/" + _id} key={_id} passHref>
+                <Tr role="button" _hover={{ bg: "brand.50" }}>
                   <Td>
-                    {student.lastName.toUpperCase()}, {student.firstName}
+                    {lastName.toUpperCase()}, {firstName}
                   </Td>
                   <Td>FCE</Td>
                 </Tr>
-              );
-            })}
+              </Link>
+            ))}
           </Tbody>
         </Table>
       </Box>
@@ -80,7 +81,7 @@ const Page: React.FC<Props> = ({ students }) => {
 export default Page;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const students = await studentsApi.list();
+  const students = await studentsApi.findAll();
 
   return {
     props: {
