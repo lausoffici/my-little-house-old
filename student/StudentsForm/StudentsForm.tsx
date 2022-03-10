@@ -6,8 +6,8 @@ import {
   Stack,
   Textarea,
 } from "@chakra-ui/react";
-import { Controller, UseFormReturn } from "react-hook-form";
-import MultiSelect from "react-select";
+import CoursesMultiSelect from "components/CoursesMultiSelect/CoursesMultiSelect";
+import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   form: UseFormReturn<IFormData, any>;
@@ -22,12 +22,6 @@ export interface IFormData {
   description: string;
 }
 
-const courseOptions = [
-  { value: "kinder", label: "Kinder" },
-  { value: "adults", label: "Adults" },
-  { value: "fce", label: "FCE" },
-];
-
 const StudentForm = ({ form }: Props) => {
   const {
     register,
@@ -35,13 +29,7 @@ const StudentForm = ({ form }: Props) => {
     control,
   } = form;
 
-  const customStyles = {
-    placeholder: (provided, state) => ({
-      ...provided,
-      color: "#A0AEC0",
-      borderColor: state.isFocused ? "#2A9D8F" : "#A0AEC0",
-    }),
-  };
+  console.log(form.watch());
 
   return (
     <form>
@@ -76,28 +64,9 @@ const StudentForm = ({ form }: Props) => {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl minH="72px">
+        <FormControl>
           <FormLabel>Cursos</FormLabel>
-          <Controller
-            name="courses"
-            control={control}
-            render={({ field: { value, onChange, onBlur } }) => (
-              <MultiSelect
-                isMulti
-                options={courseOptions}
-                placeholder="Seleccionar cursos"
-                noOptionsMessage={() => "No se encontraron cursos"}
-                onBlur={onBlur}
-                onChange={(options) =>
-                  onChange(options?.map((option) => option.value))
-                }
-                value={courseOptions.filter((option) =>
-                  value?.includes(option.value)
-                )}
-                styles={customStyles}
-              />
-            )}
-          />
+          <CoursesMultiSelect control={control} />
         </FormControl>
 
         <FormControl>
