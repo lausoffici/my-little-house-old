@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { RiUserAddLine } from "react-icons/ri";
+import MyButton from "../../components/Button";
 
 import StudentsForm, { IFormData } from "student/StudentsForm";
 import studentsApi from "student/api";
@@ -54,20 +55,9 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
 
   return (
     <>
-      <Button
-        onClick={onOpen}
-        leftIcon={<RiUserAddLine />}
-        size="sm"
-        bgColor="brand.800"
-        color="white"
-        fontWeight="thin"
-        _hover={{ bgColor: "brand.750" }}
-        _active={{ bgColor: "brand.700" }}
-        _focus={{ outlineColor: "brand.700" }}
-        p={5}
-      >
+      <MyButton onClick={onOpen} icon={<RiUserAddLine />}>
         Nuevo Alumno
-      </Button>
+      </MyButton>
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -82,12 +72,17 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
             <StudentsForm form={form} />
           </DrawerBody>
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
+            <Button
+              variant="outline"
+              _focus={{ borderColor: "gray.300" }}
+              mr={3}
+              onClick={onClose}
+            >
               Cancelar
             </Button>
-            <Button colorScheme="blue" onClick={form.handleSubmit(onSubmit)}>
+            <MyButton icon={""} onClick={form.handleSubmit(onSubmit)}>
               Guardar
-            </Button>
+            </MyButton>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
