@@ -35,6 +35,14 @@ const StudentForm = ({ form }: Props) => {
     control,
   } = form;
 
+  const customStyles = {
+    placeholder: (provided, state) => ({
+      ...provided,
+      color: "#A0AEC0",
+      borderColor: state.isFocused ? "#2A9D8F" : "#A0AEC0",
+    }),
+  };
+
   return (
     <form>
       <Stack spacing={4}>
@@ -46,6 +54,7 @@ const StudentForm = ({ form }: Props) => {
             {...register("firstName", {
               required: "Campo requerido",
             })}
+            _focus={{ border: "2px", borderColor: "brand.400" }}
           />
           <FormErrorMessage>
             {errors.firstName && errors.firstName.message}
@@ -60,6 +69,7 @@ const StudentForm = ({ form }: Props) => {
             {...register("lastName", {
               required: "Campo requerido",
             })}
+            _focus={{ border: "2px", borderColor: "brand.400" }}
           />
           <FormErrorMessage>
             {errors.lastName && errors.lastName.message}
@@ -84,6 +94,7 @@ const StudentForm = ({ form }: Props) => {
                 value={courseOptions.filter((option) =>
                   value?.includes(option.value)
                 )}
+                styles={customStyles}
               />
             )}
           />
@@ -95,6 +106,7 @@ const StudentForm = ({ form }: Props) => {
             id="address"
             placeholder="Juan B. Justo 572, Llavallol"
             {...register("address")}
+            _focus={{ border: "2px", borderColor: "brand.400" }}
           />
         </FormControl>
 
@@ -107,6 +119,7 @@ const StudentForm = ({ form }: Props) => {
               required: false,
               pattern: /^\S+@\S+$/i,
             })}
+            _focus={{ border: "2px", borderColor: "brand.400" }}
           />
           <FormErrorMessage>
             {errors.email && errors.email.message}
@@ -119,6 +132,7 @@ const StudentForm = ({ form }: Props) => {
             id="description"
             placeholder=""
             {...register("description")}
+            _focus={{ border: "2px", borderColor: "brand.400" }}
           />
           <FormErrorMessage>
             {errors.lastName && errors.lastName.message}
