@@ -1,10 +1,11 @@
-import { Button } from "@chakra-ui/react";
+import { FC } from "react";
+import { Button, ButtonProps } from "@chakra-ui/react";
 
-function MyButton({ onClick, icon, children }) {
+const PrimaryButton: FC<ButtonProps> = ({ onClick, leftIcon, children }) => {
   return (
     <Button
       onClick={onClick}
-      leftIcon={icon}
+      leftIcon={leftIcon}
       size="sm"
       bgColor="brand.800"
       color="white"
@@ -17,6 +18,6 @@ function MyButton({ onClick, icon, children }) {
       {children}
     </Button>
   );
-}
+};
 
-export default MyButton;
+export default PrimaryButton;

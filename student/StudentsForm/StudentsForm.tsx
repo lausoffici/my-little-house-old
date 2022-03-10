@@ -29,8 +29,6 @@ const StudentForm = ({ form }: Props) => {
     control,
   } = form;
 
-  console.log(form.watch());
-
   return (
     <form>
       <Stack spacing={4}>

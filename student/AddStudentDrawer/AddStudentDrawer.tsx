@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { RiUserAddLine } from "react-icons/ri";
-import MyButton from "../../components/Button";
+import PrimaryButton from "components/PrimaryButton";
 
 import StudentsForm, { IFormData } from "student/StudentsForm";
 import studentsApi from "student/api";
@@ -55,9 +55,9 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
 
   return (
     <>
-      <MyButton onClick={onOpen} icon={<RiUserAddLine />}>
+      <PrimaryButton onClick={onOpen} leftIcon={<RiUserAddLine />}>
         Nuevo Alumno
-      </MyButton>
+      </PrimaryButton>
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -80,9 +80,9 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
             >
               Cancelar
             </Button>
-            <MyButton icon={""} onClick={form.handleSubmit(onSubmit)}>
+            <PrimaryButton onClick={form.handleSubmit(onSubmit)}>
               Guardar
-            </MyButton>
+            </PrimaryButton>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
