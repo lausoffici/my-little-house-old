@@ -35,6 +35,7 @@ const StudentForm = ({ form }: Props) => {
         <FormControl isRequired isInvalid={!!errors.firstName}>
           <FormLabel htmlFor="firstName">Nombre</FormLabel>
           <Input
+            autoFocus
             id="firstName"
             placeholder="Juan"
             {...register("firstName", {
