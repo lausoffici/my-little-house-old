@@ -1,4 +1,6 @@
 import { extendTheme, theme as base } from "@chakra-ui/react";
+import { InputStyles as Input } from "./ComponentsStyles";
+import { ButtonStyles as Button } from "./ComponentsStyles";
 
 const theme = extendTheme({
   fonts: {
@@ -30,6 +32,10 @@ const theme = extendTheme({
       //casi negro
       900: "#2B2933",
     },
+  },
+  components: {
+    Input,
+    Button,
   },
 });
 
