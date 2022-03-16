@@ -1,3 +1,1 @@
-import DataText from "./datatext";
-
-export default DataText;
+export { default } from "./DataText";
