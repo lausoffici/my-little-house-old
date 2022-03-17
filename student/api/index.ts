@@ -3,7 +3,12 @@ import { IStudent } from "types";
 import { IFormData } from "student/StudentsForm";
 
 const api = {
-  list: async (): Promise<IStudent[]> => {
+  findOne: async (id: string): Promise<IStudent> => {
+    const response = await apiClient.get("students/" + id);
+    const student: IStudent = response.data.student;
+    return student;
+  },
+  findAll: async (): Promise<IStudent[]> => {
     const response = await apiClient.get("students");
     const students: IStudent[] = response.data.students;
     return students;

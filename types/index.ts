@@ -7,7 +7,7 @@ interface IEntity {
 export interface IStudent extends IEntity {
   firstName: string;
   lastName: string;
-  courses: ICourse[];
+  courses: string[];
   description?: string;
   phones?: { name: string; value: number }[];
   address?: string;
