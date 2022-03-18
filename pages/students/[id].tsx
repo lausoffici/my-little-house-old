@@ -11,11 +11,11 @@ import {
   List,
   HStack,
   VStack,
+  Text,
 } from "@chakra-ui/react";
 import DataText from "components/DataText";
-
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import { AiOutlineEdit, AiOutlinePaperClip } from "react-icons/ai";
+import UpdateStudentDrawer from "student/UpdateStudentDrawer";
+import { AiOutlineArrowLeft, AiOutlinePaperClip } from "react-icons/ai";
 
 import studentsApi from "student/api";
 import { IStudent } from "types";
@@ -27,7 +27,12 @@ interface Props {
 
 const StudentDetailPage: React.FC<Props> = ({ student }) => {
   const router = useRouter();
+
   const { lastName, firstName, description, courses, email, address } = student;
+
+  function handleUpdateStudent(student: IStudent) {
+    console.log(123);
+  }
 
   return (
     <Box h="100vh" w="100%" p={5} bgColor="brand.50">
@@ -52,17 +57,34 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
           <Card>
             <HStack justify="space-between" w="full">
               <Heading size="md">DATOS</Heading>
-              <Button leftIcon={<AiOutlineEdit />}>Editar</Button>
-              {/* Cambiar por buttonprimary una vez mergeada branch styles */}
+              <UpdateStudentDrawer
+                student={student}
+                handleUpdateStudent={handleUpdateStudent}
+              />
             </HStack>
             <Divider />
             <DataText data="Apellido: ">{capitalize(lastName)}</DataText>
             <DataText data="Nombre: ">{capitalize(firstName)}</DataText>
             <DataText data="Dirección: ">{capitalize(address)}</DataText>
             <DataText data="Email: ">{email}</DataText>
-            <DataText data="Comentarios: ">{description}</DataText>
-            <DataText data="Cursos: ">
-              <List>
+
+            <Text color="brand.800">Comentarios:</Text>
+            {description && (
+              <Text
+                bgColor="white"
+                border="2px"
+                borderRadius="lg"
+                borderColor="brand.50"
+                p={5}
+                whiteSpace="pre-line"
+              >
+                {description}
+              </Text>
+            )}
+
+            <Text color="brand.800">Cursos:</Text>
+            {courses.length && (
+              <List marginLeft="10px">
                 {courses.map((c) => (
                   <ListItem key={c}>
                     <ListIcon as={AiOutlinePaperClip} />
@@ -70,7 +92,7 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
                   </ListItem>
                 ))}
               </List>
-            </DataText>
+            )}
           </Card>
 
           {/* CUOTAS */}
