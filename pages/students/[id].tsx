@@ -45,7 +45,7 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
           Volver
         </Button>
         <Heading size="2xl" textAlign="center" my="4" mt={{ base: 12, lg: 4 }}>
-          {lastName.toUpperCase()}, {firstName}
+          {lastName.toUpperCase()}, {capitalize(firstName)}
         </Heading>
 
         <VStack>

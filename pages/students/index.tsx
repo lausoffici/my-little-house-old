@@ -14,6 +14,7 @@ import {
   InputLeftElement,
   InputGroup,
 } from "@chakra-ui/react";
+import { capitalize, removeAccents } from "../../utils/common";
 
 import studentsApi from "student/api";
 import AddStudentDrawer from "student/AddStudentDrawer";
@@ -32,6 +33,12 @@ const Page: React.FC<Props> = ({ students }) => {
   function handleAddStudent(student: IStudent) {
     setStudentList([...studentList, student]);
   }
+
+  const orderStudents = students.sort((a, b) => {
+    const lowerA = removeAccents(a.lastName.toLowerCase());
+    const lowerB = removeAccents(b.lastName.toLowerCase());
+    return lowerA > lowerB ? 1 : lowerA < lowerB ? -1 : 0;
+  });
 
   return (
     <VStack w="100%" h="100vh" bgColor="brand.50" p={5}>
@@ -61,13 +68,13 @@ const Page: React.FC<Props> = ({ students }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {students.map(({ _id, firstName, lastName }) => (
+            {orderStudents.map(({ _id, firstName, lastName, courses }) => (
               <Link href={"/students/" + _id} key={_id} passHref>
                 <Tr role="button" _hover={{ bg: "brand.50" }}>
                   <Td>
-                    {lastName.toUpperCase()}, {firstName}
+                    {lastName.toUpperCase()}, {capitalize(firstName)}
                   </Td>
-                  <Td>FCE</Td>
+                  <Td>{courses.join(" / ")}</Td>
                 </Tr>
               </Link>
             ))}
