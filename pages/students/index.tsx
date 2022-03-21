@@ -13,6 +13,7 @@ import {
   Box,
   InputLeftElement,
   InputGroup,
+  Select,
 } from "@chakra-ui/react";
 import { capitalize, removeAccents } from "../../utils/common";
 
@@ -29,6 +30,7 @@ interface Props {
 
 const Page: React.FC<Props> = ({ students }) => {
   const [studentList, setStudentList] = useState<IStudent[]>(students);
+  const [inputValue, setInputValue] = useState("");
 
   function handleAddStudent(student: IStudent) {
     setStudentList([...studentList, student]);
@@ -41,8 +43,8 @@ const Page: React.FC<Props> = ({ students }) => {
   });
 
   return (
-    <VStack w="100%" h="100vh" bgColor="brand.50" p={5}>
-      <HStack mb={5} w="100%">
+    <VStack w="100%" h="100vh" bgColor="brand.50" p={5} spacing={4}>
+      <HStack w="100%">
         <InputGroup>
           <InputLeftElement pointerEvents="none">
             <RiSearchLine />
@@ -50,12 +52,29 @@ const Page: React.FC<Props> = ({ students }) => {
           <Input
             placeholder="Buscar"
             bgColor="white"
-            _focus={{ borderColor: "brand.400" }}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
           />
         </InputGroup>
         <AddStudentDrawer handleAddStudent={handleAddStudent} />
       </HStack>
-      <Box overflowY="auto" w="100%">
+      <HStack w="100%">
+        <Select
+          color="gray.500"
+          size="sm"
+          borderRadius="5"
+          placeholder="Filtrar por cursos"
+          bg="white"
+          border="2px solid"
+          _focus={{ borderColor: "brand.400" }}
+        >
+          {students.map(({ courses, _id }) => (
+            <option key={_id}>{courses}</option>
+          ))}{" "}
+          {/* no filtra pues hay que armar los cursos */}
+        </Select>
+      </HStack>
+      <Box overflowY="auto" w="100%" mt={5}>
         <Table colorScheme="gray" size="sm" bgColor="white">
           <Thead>
             <Tr>
@@ -68,16 +87,27 @@ const Page: React.FC<Props> = ({ students }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {orderStudents.map(({ _id, firstName, lastName, courses }) => (
-              <Link href={"/students/" + _id} key={_id} passHref>
-                <Tr role="button" _hover={{ bg: "brand.50" }}>
-                  <Td>
-                    {lastName.toUpperCase()}, {capitalize(firstName)}
-                  </Td>
-                  <Td>{courses.join(" / ")}</Td>
-                </Tr>
-              </Link>
-            ))}
+            {orderStudents
+              .filter(
+                (f) =>
+                  removeAccents(f.lastName.toLowerCase()).includes(
+                    inputValue
+                  ) ||
+                  removeAccents(f.firstName.toLowerCase()).includes(
+                    inputValue
+                  ) ||
+                  inputValue === ""
+              )
+              .map(({ _id, firstName, lastName, courses }) => (
+                <Link href={"/students/" + _id} key={_id} passHref>
+                  <Tr role="button" _hover={{ bg: "brand.50" }}>
+                    <Td>
+                      {lastName.toUpperCase()}, {capitalize(firstName)}
+                    </Td>
+                    <Td>{courses.join(" / ")}</Td>
+                  </Tr>
+                </Link>
+              ))}
           </Tbody>
         </Table>
       </Box>
