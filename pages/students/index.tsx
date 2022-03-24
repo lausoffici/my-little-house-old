@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { GetServerSideProps } from "next";
 import {
   Input,
@@ -15,7 +15,7 @@ import {
   InputGroup,
   Select,
 } from "@chakra-ui/react";
-import { capitalize, removeAccents } from "../../utils/common";
+import { capitalize, normalize } from "utils/common";
 
 import studentsApi from "student/api";
 import AddStudentDrawer from "student/AddStudentDrawer";
@@ -36,11 +36,15 @@ const Page: React.FC<Props> = ({ students }) => {
     setStudentList([...studentList, student]);
   }
 
-  const orderStudents = students.sort((a, b) => {
-    const lowerA = removeAccents(a.lastName.toLowerCase());
-    const lowerB = removeAccents(b.lastName.toLowerCase());
-    return lowerA > lowerB ? 1 : lowerA < lowerB ? -1 : 0;
-  });
+  const filteredList = useMemo(
+    () =>
+      studentList.filter(
+        (s) =>
+          normalize(s.lastName).includes(normalize(inputValue)) ||
+          normalize(s.firstName).includes(normalize(inputValue))
+      ),
+    [inputValue, studentList]
+  );
 
   return (
     <VStack w="100%" h="100vh" bgColor="brand.50" p={5} spacing={4}>
@@ -70,7 +74,7 @@ const Page: React.FC<Props> = ({ students }) => {
         >
           {students.map(({ courses, _id }) => (
             <option key={_id}>{courses}</option>
-          ))}{" "}
+          ))}
           {/* no filtra pues hay que armar los cursos */}
         </Select>
       </HStack>
@@ -87,27 +91,16 @@ const Page: React.FC<Props> = ({ students }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {orderStudents
-              .filter(
-                (f) =>
-                  removeAccents(f.lastName.toLowerCase()).includes(
-                    inputValue
-                  ) ||
-                  removeAccents(f.firstName.toLowerCase()).includes(
-                    inputValue
-                  ) ||
-                  inputValue === ""
-              )
-              .map(({ _id, firstName, lastName, courses }) => (
-                <Link href={"/students/" + _id} key={_id} passHref>
-                  <Tr role="button" _hover={{ bg: "brand.50" }}>
-                    <Td>
-                      {lastName.toUpperCase()}, {capitalize(firstName)}
-                    </Td>
-                    <Td>{courses.join(" / ")}</Td>
-                  </Tr>
-                </Link>
-              ))}
+            {filteredList.map(({ _id, firstName, lastName, courses }) => (
+              <Link href={"/students/" + _id} key={_id} passHref>
+                <Tr role="button" _hover={{ bg: "brand.50" }}>
+                  <Td>
+                    {lastName.toUpperCase()}, {capitalize(firstName)}
+                  </Td>
+                  <Td>{courses.join(" / ")}</Td>
+                </Tr>
+              </Link>
+            ))}
           </Tbody>
         </Table>
       </Box>
