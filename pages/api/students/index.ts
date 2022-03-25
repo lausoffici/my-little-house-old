@@ -11,7 +11,9 @@ export default async function handler(
   switch (req.method) {
     case "GET":
       try {
-        const students = await Student.find({});
+        const students = await Student.find({})
+          .collation({ locale: "es" })
+          .sort({ lastName: "asc" });
         res.status(200).json({ students });
       } catch (error) {
         res.status(400).json(error);

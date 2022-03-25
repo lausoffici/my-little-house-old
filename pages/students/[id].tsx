@@ -13,6 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import DataText from "components/DataText";
+import PrimaryButton from "components/PrimaryButton";
 
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineEdit, AiOutlinePaperClip } from "react-icons/ai";
@@ -44,7 +45,7 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
           Volver
         </Button>
         <Heading size="2xl" textAlign="center" my="4" mt={{ base: 12, lg: 4 }}>
-          {lastName.toUpperCase()}, {firstName}
+          {lastName.toUpperCase()}, {capitalize(firstName)}
         </Heading>
 
         <VStack>
@@ -52,15 +53,14 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
           <Card>
             <HStack justify="space-between" w="full">
               <Heading size="md">DATOS</Heading>
-              <Button leftIcon={<AiOutlineEdit />}>Editar</Button>
-              {/* Cambiar por buttonprimary una vez mergeada branch styles */}
+              <PrimaryButton leftIcon={<AiOutlineEdit />}>Editar</PrimaryButton>
             </HStack>
             <Divider />
             <DataText data="Apellido: ">{capitalize(lastName)}</DataText>
             <DataText data="Nombre: ">{capitalize(firstName)}</DataText>
             <DataText data="Dirección: ">{capitalize(address)}</DataText>
             <DataText data="Email: ">{email}</DataText>
-            <DataText data="Comentarios: ">{description}</DataText>
+            <DataText data="Comentarios: ">{capitalize(description)}</DataText>
             <DataText data="Cursos: ">
               <List>
                 {courses.map((c) => (

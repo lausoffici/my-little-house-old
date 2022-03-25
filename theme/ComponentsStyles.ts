@@ -9,9 +9,10 @@ export const InputStyles = {
   variants: {
     outline: {
       field: {
-        border: "2px solid",
+        border: "1px",
         bg: "white",
         _focus: {
+          borderWidth: "2px",
           borderColor: "brand.400",
           boxShadow: "none",
         },
