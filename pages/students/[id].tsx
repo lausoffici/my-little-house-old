@@ -16,6 +16,7 @@ import {
 import DataText from "components/DataText";
 import UpdateStudentDrawer from "student/UpdateStudentDrawer";
 import { AiOutlineArrowLeft, AiOutlinePaperClip } from "react-icons/ai";
+import RemoveStudent from "student/RemoveStudent";
 
 import studentsApi from "student/api";
 import { IStudent } from "types";
@@ -49,7 +50,7 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
           Volver
         </Button>
         <Heading size="2xl" textAlign="center" my="4" mt={{ base: 12, lg: 4 }}>
-          {lastName.toUpperCase()}, {firstName}
+          {lastName.toUpperCase()}, {capitalize(firstName)}
         </Heading>
 
         <VStack>
@@ -57,10 +58,13 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
           <Card>
             <HStack justify="space-between" w="full">
               <Heading size="md">DATOS</Heading>
-              <UpdateStudentDrawer
-                student={student}
-                handleUpdateStudent={handleUpdateStudent}
-              />
+              <HStack>
+                <UpdateStudentDrawer
+                  student={student}
+                  handleUpdateStudent={handleUpdateStudent}
+                />
+                <RemoveStudent student={student} />
+              </HStack>
             </HStack>
             <Divider />
             <DataText data="Apellido: ">{capitalize(lastName)}</DataText>
