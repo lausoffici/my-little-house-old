@@ -14,9 +14,13 @@ import {
 } from "@chakra-ui/react";
 import DataText from "components/DataText";
 import PrimaryButton from "components/PrimaryButton";
+import RemoveStudent from "student/RemoveStudent";
 
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import { AiOutlineEdit, AiOutlinePaperClip } from "react-icons/ai";
+import {
+  AiOutlineEdit,
+  AiOutlinePaperClip,
+  AiOutlineArrowLeft,
+} from "react-icons/ai";
 
 import studentsApi from "student/api";
 import { IStudent } from "types";
@@ -53,7 +57,12 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
           <Card>
             <HStack justify="space-between" w="full">
               <Heading size="md">DATOS</Heading>
-              <PrimaryButton leftIcon={<AiOutlineEdit />}>Editar</PrimaryButton>
+              <HStack>
+                <PrimaryButton leftIcon={<AiOutlineEdit />}>
+                  Editar
+                </PrimaryButton>
+                <RemoveStudent student={student} />
+              </HStack>
             </HStack>
             <Divider />
             <DataText data="Apellido: ">{capitalize(lastName)}</DataText>
