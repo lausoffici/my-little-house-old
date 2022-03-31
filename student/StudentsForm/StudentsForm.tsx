@@ -21,7 +21,8 @@ export interface IFormData {
   address: string;
   email: string;
   description: string;
-  active: boolean;
+  active?: boolean;
+  _id?: string;
 }
 
 const StudentForm = ({ form }: Props) => {
@@ -29,11 +30,25 @@ const StudentForm = ({ form }: Props) => {
     register,
     formState: { errors },
     control,
+    getValues,
   } = form;
+
+  const isExistingStudent = !Boolean(getValues()._id);
 
   return (
     <form>
       <Stack spacing={4}>
+        {!isExistingStudent && (
+          <FormControl>
+            <FormLabel htmlFor="active">Habilitado</FormLabel>
+            <Switch
+              id="active"
+              placeholder="Juan B. Justo 572, Llavallol"
+              {...register("active")}
+            />
+          </FormControl>
+        )}
+
         <FormControl isRequired isInvalid={!!errors.firstName}>
           <FormLabel htmlFor="firstName">Nombre</FormLabel>
           <Input
@@ -74,15 +89,6 @@ const StudentForm = ({ form }: Props) => {
             id="address"
             placeholder="Juan B. Justo 572, Llavallol"
             {...register("address")}
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel htmlFor="active">Habilitado</FormLabel>
-          <Switch
-            id="active"
-            placeholder="Juan B. Justo 572, Llavallol"
-            {...register("active")}
           />
         </FormControl>
 
