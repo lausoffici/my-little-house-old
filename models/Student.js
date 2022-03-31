@@ -16,7 +16,7 @@ const StudentSchema = new mongoose.Schema({
   email: { type: String },
   phones: { type: Array },
   courses: { type: Array },
-  isDeleted: { type: Boolean, default: false },
+  active: { type: Boolean, default: true },
 });
 
 export default mongoose.models.Student ||

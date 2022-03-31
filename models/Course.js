@@ -11,7 +11,7 @@ const CourseSchema = new mongoose.Schema({
     required: [true, "Please provide an amount for this course."],
   },
   description: { type: String },
-  isDeleted: { type: Boolean, default: false },
+  active: { type: Boolean, default: true },
 });
 
 export default mongoose.models.Course || mongoose.model("Course", CourseSchema);

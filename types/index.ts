@@ -1,7 +1,7 @@
 interface IEntity {
   _id: string;
   creationDate: Date;
-  isDeleted: boolean;
+  active: boolean;
 }
 
 export interface IStudent extends IEntity {
