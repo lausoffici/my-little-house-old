@@ -47,8 +47,8 @@ const Page: React.FC<Props> = ({ students }) => {
   );
 
   return (
-    <VStack w="100%" h="100vh" bgColor="brand.50" p={5} spacing={4}>
-      <HStack w="100%">
+    <VStack w="100%" h="100vh" bgColor="gray.50" p={5}>
+      <HStack mb={5} w="100%">
         <InputGroup>
           <InputLeftElement pointerEvents="none">
             <RiSearchLine />

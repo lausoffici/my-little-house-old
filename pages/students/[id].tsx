@@ -36,7 +36,7 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
   }
 
   return (
-    <Box h="100vh" w="100%" p={5} bgColor="brand.50">
+    <Box h="100vh" w="100%" p={5} bgColor="gray.50">
       <Box bgColor="white" borderRadius="md" p={5} position="relative" h="full">
         <Button
           size="sm"
@@ -72,6 +72,18 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
             <DataText data="Dirección: ">{capitalize(address)}</DataText>
             <DataText data="Email: ">{email}</DataText>
 
+            <Text color="brand.800">Cursos:</Text>
+            {courses.length && (
+              <List marginLeft="10px">
+                {courses.map((c) => (
+                  <ListItem key={c}>
+                    <ListIcon as={AiOutlinePaperClip} />
+                    {capitalize(c)}
+                  </ListItem>
+                ))}
+              </List>
+            )}
+
             <Text color="brand.800">Comentarios:</Text>
             {description && (
               <Text
@@ -84,18 +96,6 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
               >
                 {description}
               </Text>
-            )}
-
-            <Text color="brand.800">Cursos:</Text>
-            {courses.length && (
-              <List marginLeft="10px">
-                {courses.map((c) => (
-                  <ListItem key={c}>
-                    <ListIcon as={AiOutlinePaperClip} />
-                    {capitalize(c)}
-                  </ListItem>
-                ))}
-              </List>
             )}
           </Card>
 
