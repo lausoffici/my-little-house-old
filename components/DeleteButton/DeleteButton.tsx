@@ -1,18 +1,17 @@
-import { Button } from "@chakra-ui/react";
+import { Button, ButtonProps } from "@chakra-ui/react";
 import { AiTwotoneDelete } from "react-icons/ai";
 
-function DeleteButton({ onClick, size }) {
+function DeleteButton(props: ButtonProps) {
   return (
     <Button
-      size={size}
-      onClick={onClick}
       colorScheme="red"
       leftIcon={<AiTwotoneDelete />}
       fontWeight="semiBold"
       border="0px"
       _focus={{ outlineColor: "red", outlineWidth: "2px" }}
+      {...props}
     >
-      Eliminar
+      {props.children}
     </Button>
   );
 }

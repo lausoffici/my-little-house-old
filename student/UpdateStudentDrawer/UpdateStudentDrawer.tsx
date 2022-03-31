@@ -22,7 +22,6 @@ import { useRouter } from "next/router";
 
 interface Props {
   student: IStudent;
-  handleUpdateStudent: (student: IStudent) => void;
 }
 
 const UpdateStudentDrawer: FC<Props> = ({ student }) => {

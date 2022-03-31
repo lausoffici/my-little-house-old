@@ -1,11 +1,10 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
   Text,
   Button,
   useDisclosure,
@@ -13,17 +12,18 @@ import {
 } from "@chakra-ui/react";
 
 import DeleteButton from "components/DeleteButton";
-import { AiTwotoneDelete } from "react-icons/ai";
 import { IStudent } from "types";
 import studentsApi from "student/api";
 
 import { useRouter } from "next/router";
+import { useRef } from "react";
 
 interface Props {
   student: IStudent;
 }
 
 const RemoveStudent: React.FC<Props> = ({ student }) => {
+  const cancelRef = useRef();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const toast = useToast();
@@ -54,37 +54,31 @@ const RemoveStudent: React.FC<Props> = ({ student }) => {
 
   return (
     <>
-      <DeleteButton onClick={onOpen} size="md" p={0} leftIcon="">
-        <AiTwotoneDelete />
+      <DeleteButton onClick={onOpen} size="md">
+        Eliminar
       </DeleteButton>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>
+      <AlertDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        leastDestructiveRef={cancelRef}
+      >
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader>
             ¿Eliminar a {student.lastName} {student.firstName}?
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+          </AlertDialogHeader>
+          <AlertDialogBody>
             <Text>Esta acción no podrá revertirse</Text>
-          </ModalBody>
-
-          <ModalFooter>
-            <DeleteButton onClick={handleRemoveStudent} size="sm">
-              Eliminar
-            </DeleteButton>
-            <Button
-              variant="ghost"
-              mx={2}
-              size="sm"
-              onClick={onClose}
-              _focus={{ outlineColor: "brand.700", outlineWidth: "2px" }}
-            >
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose} variant="ghost" mr={2}>
               Cancelar
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+            <DeleteButton onClick={handleRemoveStudent}>Eliminar</DeleteButton>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
