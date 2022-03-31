@@ -75,7 +75,7 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
                 Cursos:
               </Text>
               {courses.map((c) => (
-                <Badge key={c} mx={1} colorScheme="green">
+                <Badge key={c} mx={1} colorScheme="purple">
                   {capitalize(c)}
                 </Badge>
               ))}

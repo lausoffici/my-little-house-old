@@ -66,7 +66,7 @@ const RemoveStudent: React.FC<Props> = ({ student }) => {
         <AlertDialogOverlay />
         <AlertDialogContent>
           <AlertDialogHeader>
-            ¿Eliminar a {student.lastName} {student.firstName}?
+            ¿Eliminar a {student.firstName} {student.lastName}?
           </AlertDialogHeader>
           <AlertDialogBody>
             <Text>Esta acción no podrá revertirse</Text>
