@@ -1,1 +1,3 @@
-export { default } from "./DataText";
+import DataText from "./DataText";
+
+export default DataText;
