@@ -1,8 +1,11 @@
-import { FC } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Control, Controller } from "react-hook-form";
 import MultiSelect from "react-select";
 
+import courseApi from "course/api";
 import { IFormData } from "student/StudentsForm";
+import { ICourse } from "types";
+
 import theme from "theme";
 
 const styles = {
@@ -36,17 +39,28 @@ const styles = {
   }),
 };
 
-const courseOptions = [
-  { value: "kinder", label: "Kinder" },
-  { value: "adults", label: "Adults" },
-  { value: "fce", label: "FCE" },
-];
-
 interface Props {
   control: Control<IFormData, any>;
 }
 
 const CoursesMultiSelect: FC<Props> = ({ control }) => {
+  const [courses, setCourses] = useState<ICourse[]>([]);
+
+  // Fetchea los cursos de la api al montar el componente para cargar las options
+  useEffect(() => {
+    const getCourses = async () => {
+      const courses = await courseApi.findAll();
+      setCourses(courses);
+    };
+    getCourses();
+  }, []);
+
+  // Array de objetos con el formato { value: string, label: string } para las options de react-select
+  const courseOptions = useMemo(
+    () => courses.map((c) => ({ value: c.name, label: c.name })),
+    [courses]
+  );
+
   return (
     <Controller
       name="courses"

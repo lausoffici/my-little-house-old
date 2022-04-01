@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const LinkItems = [
   { name: "Estudiantes", icon: FiSmile, href: "/students" },
-  { name: "Cursos", icon: FiMonitor, href: "/cursos" },
+  { name: "Cursos", icon: FiMonitor, href: "/courses" },
   { name: "Caja", icon: FiLock, href: "/caja" },
 ];
 

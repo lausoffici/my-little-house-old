@@ -16,6 +16,6 @@
     "jsx": "preserve",
     "baseUrl": "./"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "course/CourseForm"],
   "exclude": ["node_modules"]
 }

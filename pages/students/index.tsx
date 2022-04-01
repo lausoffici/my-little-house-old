@@ -14,6 +14,7 @@ import {
   InputLeftElement,
   InputGroup,
   Select,
+  Badge,
 } from "@chakra-ui/react";
 import { capitalize, normalize } from "utils/common";
 
@@ -86,7 +87,7 @@ const Page: React.FC<Props> = ({ students }) => {
                 Apellido y Nombre
               </Th>
               <Th bgColor="brand.200" color="brand.50">
-                Curso
+                Cursos
               </Th>
             </Tr>
           </Thead>
@@ -97,7 +98,13 @@ const Page: React.FC<Props> = ({ students }) => {
                   <Td>
                     {lastName.toUpperCase()}, {capitalize(firstName)}
                   </Td>
-                  <Td>{courses.join(" / ")}</Td>
+                  <Td>
+                    {courses.map((c) => (
+                      <Badge key={c} mx={1} colorScheme="purple">
+                        {capitalize(c)}
+                      </Badge>
+                    ))}
+                  </Td>
                 </Tr>
               </Link>
             ))}
