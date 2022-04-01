@@ -1,3 +1,1 @@
-import DataText from "./DataText";
-
-export default DataText;
+export { default } from "components/DataText/DataText";
