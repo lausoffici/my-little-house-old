@@ -1,1 +1,1 @@
-export { default } from "components/DataText/DataText";
+export { default } from "./DataText";
