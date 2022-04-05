@@ -48,11 +48,7 @@ const CoursesMultiSelect: FC<Props> = ({ control }) => {
 
   // Fetchea los cursos de la api al montar el componente para cargar las options
   useEffect(() => {
-    const getCourses = async () => {
-      const courses = await courseApi.findAll();
-      setCourses(courses);
-    };
-    getCourses();
+    courseApi.findAll().then((courses) => setCourses(courses));
   }, []);
 
   // Array de objetos con el formato { value: string, label: string } para las options de react-select

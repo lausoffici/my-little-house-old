@@ -26,10 +26,10 @@ interface Props {
 
 const UpdateStudentDrawer: FC<Props> = ({ student }) => {
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const form = useForm<IFormData>({ defaultValues: student });
   const btnRef = useRef<HTMLButtonElement>();
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   async function onSubmit(inputs: IFormData) {
     try {
@@ -57,12 +57,7 @@ const UpdateStudentDrawer: FC<Props> = ({ student }) => {
 
   return (
     <>
-      <Button
-        variant="outline"
-        background="white"
-        onClick={onOpen}
-        leftIcon={<AiOutlineEdit />}
-      >
+      <Button variant="outline" onClick={onOpen} leftIcon={<AiOutlineEdit />}>
         Editar
       </Button>
       <Drawer
