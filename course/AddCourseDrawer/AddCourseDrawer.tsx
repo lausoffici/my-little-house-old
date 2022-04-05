@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import { FC } from "react";
 import {
   Button,
   Drawer,
@@ -26,7 +26,6 @@ interface Props {
 const AddCourseDrawer: FC<Props> = ({ handleAddCourse }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const form = useForm<IFormData>();
-  const btnRef = useRef<HTMLButtonElement>();
   const toast = useToast();
 
   async function onSubmit(inputs: IFormData) {
@@ -58,12 +57,7 @@ const AddCourseDrawer: FC<Props> = ({ handleAddCourse }) => {
       <PrimaryButton onClick={onOpen} leftIcon={<RiUserAddLine />}>
         Nuevo Curso
       </PrimaryButton>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
