@@ -11,6 +11,7 @@ import {
   HStack,
   VStack,
   Text,
+  Tag,
 } from "@chakra-ui/react";
 import DataText from "components/DataText";
 import UpdateStudentDrawer from "student/UpdateStudentDrawer";
@@ -27,7 +28,8 @@ interface Props {
 
 const StudentDetailPage: React.FC<Props> = ({ student }) => {
   const router = useRouter();
-  const { lastName, firstName, description, courses, email, address } = student;
+  const { lastName, firstName, description, courses, email, address, active } =
+    student;
 
   return (
     <Box
@@ -75,9 +77,9 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
                 Cursos:
               </Text>
               {courses.map((c) => (
-                <Badge key={c} mx={1} colorScheme="purple">
+                <Tag key={c} mx={1} colorScheme="purple" variant="outline">
                   {capitalize(c)}
-                </Badge>
+                </Tag>
               ))}
             </Flex>
           )}
@@ -95,6 +97,12 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
               {capitalize(description)}
             </Text>
           )}
+          <DataText data="Estado:">
+            {" "}
+            <Badge colorScheme={active ? "green" : "gray"} h={5}>
+              {active ? " activo" : "inactivo"}
+            </Badge>
+          </DataText>
         </Card>
 
         {/* CUOTAS */}
