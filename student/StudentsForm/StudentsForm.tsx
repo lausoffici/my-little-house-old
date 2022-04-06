@@ -6,6 +6,7 @@ import {
   Stack,
   Switch,
   Textarea,
+  HStack,
 } from "@chakra-ui/react";
 import CoursesMultiSelect from "components/CoursesMultiSelect/CoursesMultiSelect";
 import { UseFormReturn } from "react-hook-form";
@@ -38,17 +39,6 @@ const StudentForm = ({ form }: Props) => {
   return (
     <form>
       <Stack spacing={4}>
-        {!isExistingStudent && (
-          <FormControl>
-            <FormLabel htmlFor="active">Habilitado</FormLabel>
-            <Switch
-              id="active"
-              placeholder="Juan B. Justo 572, Llavallol"
-              {...register("active")}
-            />
-          </FormControl>
-        )}
-
         <FormControl isRequired isInvalid={!!errors.firstName}>
           <FormLabel htmlFor="firstName">Nombre</FormLabel>
           <Input
@@ -119,6 +109,24 @@ const StudentForm = ({ form }: Props) => {
             {errors.lastName && errors.lastName.message}
           </FormErrorMessage>
         </FormControl>
+
+        {!isExistingStudent && (
+          <FormControl>
+            <HStack align="center" justify="space-between">
+              <FormLabel htmlFor="active" mb={0}>
+                Estado:
+              </FormLabel>
+              <HStack>
+                <Switch
+                  colorScheme="green"
+                  id="active"
+                  {...register("active")}
+                />
+                <span> Activo </span>
+              </HStack>
+            </HStack>
+          </FormControl>
+        )}
       </Stack>
     </form>
   );
