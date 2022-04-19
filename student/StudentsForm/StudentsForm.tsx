@@ -105,9 +105,6 @@ const StudentForm = ({ form }: Props) => {
             {...register("description")}
             _focus={{ border: "2px", borderColor: "brand.400" }}
           />
-          <FormErrorMessage>
-            {errors.lastName && errors.lastName.message}
-          </FormErrorMessage>
         </FormControl>
 
         {!isExistingStudent && (

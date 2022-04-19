@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import { FC } from "react";
 import {
   Button,
   Drawer,
@@ -12,40 +12,37 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { AiOutlineEdit } from "react-icons/ai";
+import { RiUserAddLine } from "react-icons/ri";
 import PrimaryButton from "components/PrimaryButton";
 
-import StudentsForm, { IFormData } from "student/StudentsForm";
-import studentsApi from "student/api";
-import { IStudent } from "types";
-import { useRouter } from "next/router";
+import CourseForm, { IFormData } from "course/CourseForm";
+import courseApi from "course/api";
+import { ICourse } from "types";
 
 interface Props {
-  student: IStudent;
+  handleAddCourse: (student: ICourse) => void;
 }
 
-const UpdateStudentDrawer: FC<Props> = ({ student }) => {
-  const router = useRouter();
-  const form = useForm<IFormData>({ defaultValues: student });
-  const btnRef = useRef<HTMLButtonElement>();
-  const toast = useToast();
+const AddCourseDrawer: FC<Props> = ({ handleAddCourse }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const form = useForm<IFormData>();
+  const toast = useToast();
 
   async function onSubmit(inputs: IFormData) {
     try {
-      const updatedStudent = await studentsApi.update(student._id, inputs);
+      const newCourse = await courseApi.create(inputs);
+      handleAddCourse(newCourse);
       toast({
         title: "Éxito!",
-        description: "Se modificó el alumno",
+        description: "Nuevo curso añadido",
         status: "success",
         duration: 4000,
         isClosable: true,
       });
-      router.push("/students/" + updatedStudent._id);
     } catch (e) {
       toast({
         title: "Error",
-        description: "Ha ocurrido un error al intentar modificar el alumno",
+        description: "Ha ocurrido un error al intentar agregar el curso",
         status: "error",
         duration: 4000,
         isClosable: true,
@@ -57,21 +54,16 @@ const UpdateStudentDrawer: FC<Props> = ({ student }) => {
 
   return (
     <>
-      <Button variant="outline" onClick={onOpen} leftIcon={<AiOutlineEdit />}>
-        Editar
-      </Button>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
+      <PrimaryButton onClick={onOpen} leftIcon={<RiUserAddLine />}>
+        Nuevo Curso
+      </PrimaryButton>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Editar Alumno</DrawerHeader>
+          <DrawerHeader>Crear Curso</DrawerHeader>
           <DrawerBody>
-            <StudentsForm form={form} />
+            <CourseForm form={form} />
           </DrawerBody>
           <DrawerFooter>
             <Button
@@ -92,4 +84,4 @@ const UpdateStudentDrawer: FC<Props> = ({ student }) => {
   );
 };
 
-export default UpdateStudentDrawer;
+export default AddCourseDrawer;

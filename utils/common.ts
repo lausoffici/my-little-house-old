@@ -7,3 +7,5 @@ export const removeAccents = (str: string) => {
 
 export const normalize = (string: string) =>
   removeAccents(string.toLowerCase());
+
+export const formatCurrency = (n: number) => {};
