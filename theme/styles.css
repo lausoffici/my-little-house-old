@@ -1,1 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Alata&family=Josefin+Sans:wght@100;400;600;700&display=swap");
+
+.css-xvmw52:focus,
+.css-xvmw52[data-focus] {
+  box-shadow: 0 0 0 3px #276f69 !important;
+}
+
+.css-1t241p8:focus {
+  border-color: none !important;
+  outline-width: "2px" !important;
+  outline-color: #2a9d8f !important;
+}
