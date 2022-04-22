@@ -54,7 +54,7 @@ const RemoveStudent: React.FC<Props> = ({ student }) => {
 
   return (
     <>
-      <DeleteButton onClick={onOpen} size="md">
+      <DeleteButton onClick={onOpen} size="sm">
         Eliminar
       </DeleteButton>
 

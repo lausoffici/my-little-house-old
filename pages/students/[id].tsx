@@ -11,7 +11,7 @@ import {
   HStack,
   VStack,
   Text,
-  Tag,
+  Grid,
 } from "@chakra-ui/react";
 import DataText from "components/DataText";
 import UpdateStudentDrawer from "student/UpdateStudentDrawer";
@@ -66,43 +66,45 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
             </HStack>
           </HStack>
           <Divider />
-          <DataText data="Apellido: ">{capitalize(lastName)}</DataText>
-          <DataText data="Nombre: ">{capitalize(firstName)}</DataText>
-          <DataText data="Dirección: ">{capitalize(address)}</DataText>
-          <DataText data="Email: ">{email}</DataText>
 
-          {courses.length && (
-            <Flex align="center">
-              <Text color="brand.800" lineHeight="20px">
-                Cursos:
-              </Text>
-              {courses.map((c) => (
-                <Tag key={c} mx={1} colorScheme="purple" variant="outline">
-                  {capitalize(c)}
-                </Tag>
+          <Grid rowGap={2}>
+            <DataText data="Estado: ">
+              <Badge
+                verticalAlign="baseline"
+                colorScheme={active ? "green" : "gray"}
+              >
+                {active ? " activo" : "inactivo"}
+              </Badge>
+            </DataText>
+            <DataText data="Nombre: ">{capitalize(firstName)}</DataText>
+            <DataText data="Apellido: ">{capitalize(lastName)}</DataText>
+            <DataText data="Cursos: ">
+              {courses?.map((course) => (
+                <Badge
+                  key={course}
+                  verticalAlign="baseline"
+                  colorScheme="purple"
+                >
+                  {course}
+                </Badge>
               ))}
-            </Flex>
-          )}
+            </DataText>
 
-          <Text color="brand.800">Contacto:</Text>
-          {description && (
-            <Text
-              bgColor="white"
-              border="2px"
-              borderRadius="lg"
-              borderColor="brand.50"
-              p={3}
-              whiteSpace="pre-line"
-            >
-              {capitalize(description)}
-            </Text>
-          )}
-          <DataText data="Estado:">
-            {" "}
-            <Badge colorScheme={active ? "green" : "gray"} h={5}>
-              {active ? " activo" : "inactivo"}
-            </Badge>
-          </DataText>
+            <DataText data="Dirección: ">{capitalize(address)}</DataText>
+            <DataText data="Email: ">{email}</DataText>
+            <Text color="brand.800">Contacto:</Text>
+            {description && (
+              <Text
+                bgColor="#f3f3f3"
+                borderRadius="sm"
+                p={3}
+                whiteSpace="pre-line"
+                w="fit-content"
+              >
+                {capitalize(description)}
+              </Text>
+            )}
+          </Grid>
         </Card>
 
         {/* CUOTAS */}

@@ -39,6 +39,18 @@ const StudentForm = ({ form }: Props) => {
   return (
     <form>
       <Stack spacing={4}>
+        {!isExistingStudent && (
+          <FormControl display="flex" alignItems="center">
+            <Switch
+              colorScheme="green"
+              id="active"
+              {...register("active")}
+              mr={2}
+            />
+            <span>Activo</span>
+          </FormControl>
+        )}
+
         <FormControl isRequired isInvalid={!!errors.firstName}>
           <FormLabel htmlFor="firstName">Nombre</FormLabel>
           <Input
@@ -104,26 +116,9 @@ const StudentForm = ({ form }: Props) => {
             placeholder=""
             {...register("description")}
             _focus={{ border: "2px", borderColor: "brand.400" }}
+            rows={6}
           />
         </FormControl>
-
-        {!isExistingStudent && (
-          <FormControl>
-            <HStack align="center" justify="space-between">
-              <FormLabel htmlFor="active" mb={0}>
-                Estado:
-              </FormLabel>
-              <HStack>
-                <Switch
-                  colorScheme="green"
-                  id="active"
-                  {...register("active")}
-                />
-                <span> Activo </span>
-              </HStack>
-            </HStack>
-          </FormControl>
-        )}
       </Stack>
     </form>
   );

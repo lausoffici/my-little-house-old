@@ -57,7 +57,12 @@ const UpdateStudentDrawer: FC<Props> = ({ student }) => {
 
   return (
     <>
-      <Button variant="outline" onClick={onOpen} leftIcon={<AiOutlineEdit />}>
+      <Button
+        variant="outline"
+        onClick={onOpen}
+        leftIcon={<AiOutlineEdit />}
+        size="sm"
+      >
         Editar
       </Button>
       <Drawer
