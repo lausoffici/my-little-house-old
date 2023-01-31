@@ -1,3 +1,4 @@
+import { IStudent } from "types";
 import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "utils/dbConnect";
 import Student from "models/Student";
@@ -11,9 +12,7 @@ export default async function handler(
   switch (req.method) {
     case "GET":
       try {
-        const students = await Student.find({})
-          .collation({ locale: "es" })
-          .sort({ lastName: "asc" });
+        const students = await getAllStudents();
         res.status(200).json({ students });
       } catch (error) {
         res.status(400).json(error);
@@ -33,4 +32,16 @@ export default async function handler(
       res.status(404);
       break;
   }
+}
+
+export async function getAllStudents(): Promise<IStudent[]> {
+  const result = await Student.find({})
+    .collation({ locale: "es" })
+    .sort({ lastName: "asc" });
+
+  return result.map((doc) => {
+    const student = doc.toObject() as IStudent;
+    student._id = student._id.toString();
+    return student;
+  });
 }

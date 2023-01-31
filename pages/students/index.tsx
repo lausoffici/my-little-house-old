@@ -24,6 +24,9 @@ import { IStudent } from "types";
 
 import { RiSearchLine } from "react-icons/ri";
 import Link from "next/link";
+import dbConnect from "utils/dbConnect";
+import Student from "models/Student";
+import { getAllStudents } from "pages/api/students";
 
 interface Props {
   students: IStudent[];
@@ -117,12 +120,10 @@ const Page: React.FC<Props> = ({ students }) => {
 
 export default Page;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const students = await studentsApi.findAll();
+export async function getServerSideProps() {
+  await dbConnect();
 
-  return {
-    props: {
-      students: students,
-    },
-  };
-};
+  const students = await getAllStudents();
+
+  return { props: { students: students } };
+}
