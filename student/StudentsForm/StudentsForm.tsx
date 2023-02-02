@@ -12,10 +12,11 @@ import CoursesMultiSelect from "components/CoursesMultiSelect/CoursesMultiSelect
 import { UseFormReturn } from "react-hook-form";
 
 interface Props {
-  form: UseFormReturn<IFormData, any>;
+  form: UseFormReturn<IStudentFormData, any>;
+  courseOptions: { value: string; label: string }[];
 }
 
-export interface IFormData {
+export interface IStudentFormData {
   firstName: string;
   lastName: string;
   courses: string[];
@@ -26,7 +27,7 @@ export interface IFormData {
   _id?: string;
 }
 
-const StudentForm = ({ form }: Props) => {
+const StudentForm = ({ form, courseOptions }: Props) => {
   const {
     register,
     formState: { errors },
@@ -56,7 +57,7 @@ const StudentForm = ({ form }: Props) => {
           <Input
             autoFocus
             id="firstName"
-            placeholder="Juan"
+            placeholder="Ingrese un nombre"
             {...register("firstName", {
               required: "Campo requerido",
             })}
@@ -70,7 +71,7 @@ const StudentForm = ({ form }: Props) => {
           <FormLabel htmlFor="lastName">Apellido</FormLabel>
           <Input
             id="lastName"
-            placeholder="Pérez"
+            placeholder="Ingrese un apellido"
             {...register("lastName", {
               required: "Campo requerido",
             })}
@@ -82,14 +83,14 @@ const StudentForm = ({ form }: Props) => {
 
         <FormControl>
           <FormLabel>Cursos</FormLabel>
-          <CoursesMultiSelect control={control} />
+          <CoursesMultiSelect control={control} options={courseOptions} />
         </FormControl>
 
         <FormControl>
           <FormLabel htmlFor="address">Dirección</FormLabel>
           <Input
             id="address"
-            placeholder="Juan B. Justo 572, Llavallol"
+            placeholder="Ingrese una dirección"
             {...register("address")}
           />
         </FormControl>
@@ -98,7 +99,7 @@ const StudentForm = ({ form }: Props) => {
           <FormLabel htmlFor="email">Email</FormLabel>
           <Input
             id="email"
-            placeholder="mlhouse@gmail.com"
+            placeholder="Ingrese un email"
             {...register("email", {
               required: false,
               pattern: /^\S+@\S+$/i,

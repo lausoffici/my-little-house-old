@@ -15,21 +15,22 @@ import { useForm } from "react-hook-form";
 import { RiUserAddLine } from "react-icons/ri";
 import PrimaryButton from "components/PrimaryButton";
 
-import StudentsForm, { IFormData } from "student/StudentsForm";
+import StudentsForm, { IStudentFormData } from "student/StudentsForm";
 import studentsApi from "student/api";
 import { IStudent } from "types";
 
 interface Props {
   handleAddStudent: (student: IStudent) => void;
+  courseOptions: { value: string; label: string }[];
 }
 
-const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
+const AddStudentDrawer: FC<Props> = ({ handleAddStudent, courseOptions }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const form = useForm<IFormData>();
+  const form = useForm<IStudentFormData>();
   const btnRef = useRef<HTMLButtonElement>();
   const toast = useToast();
 
-  async function onSubmit(inputs: IFormData) {
+  async function onSubmit(inputs: IStudentFormData) {
     try {
       const newStudent = await studentsApi.create(inputs);
       handleAddStudent(newStudent);
@@ -69,7 +70,7 @@ const AddStudentDrawer: FC<Props> = ({ handleAddStudent }) => {
           <DrawerCloseButton />
           <DrawerHeader>Crear Alumno</DrawerHeader>
           <DrawerBody>
-            <StudentsForm form={form} />
+            <StudentsForm form={form} courseOptions={courseOptions} />
           </DrawerBody>
           <DrawerFooter>
             <Button

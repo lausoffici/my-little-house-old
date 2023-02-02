@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "utils/dbConnect";
 import Course from "models/Course";
+import { ICourse } from "types";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,9 +12,7 @@ export default async function handler(
   switch (req.method) {
     case "GET":
       try {
-        const courses = await Course.find({})
-          .collation({ locale: "es" })
-          .sort({ name: "asc" });
+        const courses = await getAllCourses();
         res.status(200).json({ courses });
       } catch (error) {
         res.status(400).json(error);
@@ -33,4 +32,16 @@ export default async function handler(
       res.status(404);
       break;
   }
+}
+
+export async function getAllCourses(): Promise<ICourse[]> {
+  const result = await Course.find({})
+    .collation({ locale: "es" })
+    .sort({ name: "asc" });
+
+  return result.map((doc) => {
+    const course = doc.toObject() as ICourse;
+    course._id = course._id.toString();
+    return course;
+  });
 }

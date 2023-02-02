@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "utils/dbConnect";
 import Student from "models/Student";
+import { IStudent } from "types";
 
 export default async function handler(
   req: NextApiRequest,
@@ -57,4 +58,14 @@ export default async function handler(
       res.status(404);
       break;
   }
+}
+
+export async function getStudentById(id: IStudent["_id"]) {
+  const student = (await Student.findById(id).lean()) as IStudent;
+
+  if (student) {
+    student._id = student._id.toString();
+  }
+
+  return student;
 }

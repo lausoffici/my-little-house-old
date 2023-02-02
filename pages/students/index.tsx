@@ -18,21 +18,21 @@ import {
 } from "@chakra-ui/react";
 import { capitalize, normalize } from "utils/common";
 
-import studentsApi from "student/api";
 import AddStudentDrawer from "student/AddStudentDrawer";
 import { IStudent } from "types";
 
 import { RiSearchLine } from "react-icons/ri";
 import Link from "next/link";
 import dbConnect from "utils/dbConnect";
-import Student from "models/Student";
 import { getAllStudents } from "pages/api/students";
+import { getAllCourses } from "pages/api/courses";
 
 interface Props {
   students: IStudent[];
+  courseOptions: { value: string; label: string }[];
 }
 
-const Page: React.FC<Props> = ({ students }) => {
+const Page = ({ students, courseOptions }: Props) => {
   const [studentList, setStudentList] = useState<IStudent[]>(students);
   const [inputValue, setInputValue] = useState("");
 
@@ -64,7 +64,10 @@ const Page: React.FC<Props> = ({ students }) => {
             onChange={(e) => setInputValue(e.target.value)}
           />
         </InputGroup>
-        <AddStudentDrawer handleAddStudent={handleAddStudent} />
+        <AddStudentDrawer
+          handleAddStudent={handleAddStudent}
+          courseOptions={courseOptions}
+        />
       </HStack>
       <HStack w="100%">
         <Select
@@ -120,10 +123,21 @@ const Page: React.FC<Props> = ({ students }) => {
 
 export default Page;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   await dbConnect();
 
   const students = await getAllStudents();
 
-  return { props: { students: students } };
-}
+  const courses = await getAllCourses();
+  const courseOptions = courses.map(({ name }) => ({
+    value: name,
+    label: name,
+  }));
+
+  return {
+    props: {
+      students,
+      courseOptions,
+    },
+  };
+};
