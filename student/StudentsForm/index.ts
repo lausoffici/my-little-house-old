@@ -1,2 +1,2 @@
 export { default } from "./StudentsForm";
-export type { IFormData } from "./StudentsForm";
+export type { IStudentFormData } from "./StudentsForm";

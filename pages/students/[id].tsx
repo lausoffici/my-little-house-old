@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
   Heading,
   HStack,
   VStack,
@@ -17,16 +16,18 @@ import DataText from "components/DataText";
 import UpdateStudentDrawer from "student/UpdateStudentDrawer";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-import studentsApi from "student/api";
 import { IStudent } from "types";
 import { capitalize } from "utils/common";
 import RemoveStudent from "student/RemoveStudent";
+import { getStudentById } from "pages/api/students/[id]";
+import { getAllCourses } from "pages/api/courses";
 
-interface Props {
+type Props = {
   student: IStudent;
-}
+  courseOptions: { value: string; label: string }[];
+};
 
-const StudentDetailPage: React.FC<Props> = ({ student }) => {
+const StudentDetailPage = ({ student, courseOptions }: Props) => {
   const router = useRouter();
   const { lastName, firstName, description, courses, email, address, active } =
     student;
@@ -61,7 +62,10 @@ const StudentDetailPage: React.FC<Props> = ({ student }) => {
           <HStack w="full" justify="space-between">
             <Heading size="md">DATOS</Heading>
             <HStack spacing={2}>
-              <UpdateStudentDrawer student={student} />
+              <UpdateStudentDrawer
+                student={student}
+                courseOptions={courseOptions}
+              />
               <RemoveStudent student={student} />
             </HStack>
           </HStack>
@@ -137,11 +141,18 @@ export default StudentDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
-  const student = await studentsApi.findOne(id as string);
+  const student = await getStudentById(id as string);
+
+  const courses = await getAllCourses();
+  const courseOptions = courses.map(({ name }) => ({
+    value: name,
+    label: name,
+  }));
 
   return {
     props: {
       student,
+      courseOptions,
     },
   };
 };

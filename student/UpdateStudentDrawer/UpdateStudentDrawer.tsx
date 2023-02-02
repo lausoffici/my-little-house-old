@@ -15,23 +15,24 @@ import { useForm } from "react-hook-form";
 import { AiOutlineEdit } from "react-icons/ai";
 import PrimaryButton from "components/PrimaryButton";
 
-import StudentsForm, { IFormData } from "student/StudentsForm";
+import StudentsForm, { IStudentFormData } from "student/StudentsForm";
 import studentsApi from "student/api";
 import { IStudent } from "types";
 import { useRouter } from "next/router";
 
-interface Props {
+type Props = {
   student: IStudent;
-}
+  courseOptions: { value: string; label: string }[];
+};
 
-const UpdateStudentDrawer: FC<Props> = ({ student }) => {
+const UpdateStudentDrawer = ({ student, courseOptions }: Props) => {
   const router = useRouter();
-  const form = useForm<IFormData>({ defaultValues: student });
+  const form = useForm<IStudentFormData>({ defaultValues: student });
   const btnRef = useRef<HTMLButtonElement>();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  async function onSubmit(inputs: IFormData) {
+  async function onSubmit(inputs: IStudentFormData) {
     try {
       const updatedStudent = await studentsApi.update(student._id, inputs);
       toast({
@@ -76,7 +77,7 @@ const UpdateStudentDrawer: FC<Props> = ({ student }) => {
           <DrawerCloseButton />
           <DrawerHeader>Editar Alumno</DrawerHeader>
           <DrawerBody>
-            <StudentsForm form={form} />
+            <StudentsForm form={form} courseOptions={courseOptions} />
           </DrawerBody>
           <DrawerFooter>
             <Button
